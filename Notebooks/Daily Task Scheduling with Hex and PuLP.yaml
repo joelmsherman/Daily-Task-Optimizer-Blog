@@ -1,0 +1,437 @@
+schemaVersion: 1
+meta:
+  sourceVersionId: 348cf440-4dd2-4705-80a1-693d19db0c43 # DO NOT CHANGE - Hex uses this to match up project versions when reimporting the file
+  description: A notebook widget for scheduling work tasks based on project priority in order to maximize productivity.
+  projectId: 437a96da-594f-4950-9a79-5386bbaefc8c # DO NOT CHANGE - Unique ID of the project from which this file was generated
+  title: Daily Task Scheduling with Hex and PuLP
+  timezone: null
+  appTheme: SYS_PREF
+  codeLanguage: PYTHON
+  status:
+    name: Production
+  categories:
+    - name: Public
+  castDecimalsDefault: true
+  logicQueryCacheTimeout: null
+  publishedQueryCacheTimeout: null
+projectAssets:
+  dataConnections: []
+  envVars: []
+  secrets: []
+sharedAssets:
+  secrets: []
+  vcsPackages: []
+  dataConnections: []
+cells:
+  - cellType: MARKDOWN
+    cellId: 5814fe4d-0717-4ce1-b90a-62c9ef009973 # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: null
+    config:
+      source: |-
+        **Step 1: Enter your Task List**
+
+        Enter your current tasks, along with a priority level (larger numbers have higher priority than smaller numbers) and expected duration.  Since this is a daily task planner, I'll use minutes, but the code can be easily adapted for longer horizons where hours or even days could be used.
+  - cellType: INPUT
+    cellId: 60756271-4c35-4ab8-a713-c31f245efc3f # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: Tasklist
+    config:
+      inputType: TABLE
+      name: tasklist
+      outputType: DATA_FRAME
+      options:
+        value: null
+      defaultValue:
+        headers:
+          - id: 4401adc1-fb99-41cf-926a-2c919923c001
+            type: STRING
+            columnName: Task name
+          - id: ed60787a-e578-4ef7-9f61-8893dec066d2
+            type: NUMBER
+            columnName: Priority
+          - id: be32de2b-49ab-4171-b4a7-3d593b0c6775
+            type: NUMBER
+            columnName: Minutes
+        contents:
+          4401adc1-fb99-41cf-926a-2c919923c001:
+            - Task 1
+            - Task 2
+            - Task 3
+            - Task 4
+            - Task 5
+          be32de2b-49ab-4171-b4a7-3d593b0c6775:
+            - "120"
+            - "90"
+            - "120"
+            - "60"
+            - "240"
+          ed60787a-e578-4ef7-9f61-8893dec066d2:
+            - "1"
+            - "3"
+            - "5"
+            - "4"
+            - "5"
+        rowCount: 5
+        totalRowCount: 5
+  - cellType: CODE
+    cellId: a7c26139-8230-47bf-9772-35346218366e # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: Add number of 30 minute blocks based on time to finish
+    config:
+      source: |
+        task = tasklist
+        task['Num of blocks'] = tasklist['Minutes']/30
+  - cellType: MARKDOWN
+    cellId: ba65e122-ba66-48db-8292-51802e5aa3ae # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: null
+    config:
+      source: |-
+        **Step 2: Enter your Schedule**
+
+        Enter your schedule for the day, or more specifically, your availability (1 = available) during each 1/2 hour time block.  If you're working with longer time horizons, your time blocks can be hours or even days.
+  - cellType: INPUT
+    cellId: 5466b5fb-108b-49e1-b112-b4cc90372128 # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: Available blocks
+    config:
+      inputType: TABLE
+      name: available_blocks
+      outputType: DATA_FRAME
+      options:
+        value: null
+      defaultValue:
+        headers:
+          - id: 7c50a7d5-0368-443c-883d-bea8d0baba9a
+            type: STRING
+            columnName: Time
+          - id: 6b4aa7cc-57b4-4cc9-8df5-9d5fd8a755c2
+            type: NUMBER
+            columnName: Availability
+        contents:
+          6b4aa7cc-57b4-4cc9-8df5-9d5fd8a755c2:
+            - "0"
+            - "0"
+            - "0"
+            - "0"
+            - "0"
+            - "0"
+            - "0"
+            - "0"
+            - "0"
+            - "0"
+            - "0"
+            - "0"
+            - "1"
+            - "1"
+            - "0"
+            - "1"
+            - "1"
+            - "1"
+            - "0"
+            - "0"
+            - "0"
+            - "1"
+            - "1"
+            - "1"
+            - "1"
+            - "1"
+            - "1"
+            - "1"
+            - "1"
+            - "1"
+            - "1"
+            - "1"
+            - "1"
+            - "0"
+            - "0"
+            - "0"
+            - "0"
+            - "0"
+            - "0"
+            - "0"
+            - "0"
+            - "0"
+            - "0"
+            - "0"
+            - "0"
+            - "0"
+            - "0"
+            - "0"
+          7c50a7d5-0368-443c-883d-bea8d0baba9a:
+            - 1:00 AM
+            - 1:30 AM
+            - 2:00 AM
+            - 2:30 AM
+            - 3:00 AM
+            - 3:30 AM
+            - 4:00 AM
+            - 4:30 AM
+            - 5:00 AM
+            - 5:30 AM
+            - 6:00 AM
+            - 6:30 AM
+            - 7:00 AM
+            - 7:30 AM
+            - 8:00 AM
+            - 8:30 AM
+            - 9:00 AM
+            - 9:30 AM
+            - 10:00 AM
+            - 10:30 AM
+            - 11:00 AM
+            - 11:30 AM
+            - 12:00 PM
+            - 12:30 PM
+            - 1:00 PM
+            - 1:30 PM
+            - 2:00 PM
+            - 2:30 PM
+            - 3:00 PM
+            - 3:30 PM
+            - 4:00 PM
+            - 4:30 PM
+            - 5:00 PM
+            - 5:30 PM
+            - 6:00 PM
+            - 6:30 PM
+            - 7:00 PM
+            - 7:30 PM
+            - 8:00 PM
+            - 8:30 PM
+            - 9:00 PM
+            - 9:30 PM
+            - 10:00 PM
+            - 10:30 PM
+            - 11:00 PM
+            - 11:30 PM
+            - 12:00 AM
+            - 12:30 AM
+        rowCount: 48
+        totalRowCount: 48
+  - cellType: MARKDOWN
+    cellId: a73686c1-04db-4b36-b56b-b5316b62aa1f # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: null
+    config:
+      source: "**Extracted Variables**"
+  - cellType: CODE
+    cellId: 1e7d6d39-02f8-4a91-8b11-f2ea0ff97936 # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: list of available blocks
+    config:
+      source: schedule = available_blocks['Availability']
+  - cellType: CODE
+    cellId: d1f754b5-908a-4029-b2c0-dc815efde2d7 # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: set variables for optimization
+    config:
+      source: |-
+        s = list(task['Priority'])
+        d = list(task['Num of blocks'])
+        b = list(schedule)
+  - cellType: CODE
+    cellId: 03c607d4-389f-42e7-8f48-3bf6b647e35a # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: instantiate block 2 vars
+    config:
+      source: |-
+        B = len(b)
+        n = len(s)
+        A = sum(b)
+  - cellType: MARKDOWN
+    cellId: ab802db5-7f33-4aa7-b991-a766d7e3750a # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: objective function description
+    config:
+      source: "### Model Objective"
+  - cellType: CODE
+    cellId: 402ac861-62f4-40ab-ba68-3a933f8d67b7 # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: call pulp
+    config:
+      source: from pulp import *
+  - cellType: CODE
+    cellId: c8855ebb-bb0b-4406-b996-5ac27071a799 # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: instantiate optimizer
+    config:
+      source: prob = LpProblem("Schedule_Tasks", LpMaximize)
+  - cellType: CODE
+    cellId: a7b0507b-c2c7-4e7a-ac2e-06d08c9876a6 # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: define y
+    config:
+      source: y = LpVariable.dicts('Block', [(i, t) for i in range(n) for t in range(B)], cat = 'Binary')
+  - cellType: CODE
+    cellId: 05f2900e-e2c6-4a92-b95e-d5baca4f81f3 # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: define objective function
+    config:
+      source: prob += lpSum(s[i]*b[t]*y[(i,t)] for i in range(n) for t in range(B))
+  - cellType: MARKDOWN
+    cellId: bdbcdd61-69bc-4c96-812a-ab3bfdb5b35c # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: constraints description
+    config:
+      source: "### Constraints"
+  - cellType: CODE
+    cellId: 54c00c11-4ea6-48c5-92a1-d2dbb48f8377 # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: define constraints
+    config:
+      source: |-
+        prob += lpSum(y[(i,t)] for i in range(n) for t in range(B)) <= A #1
+
+        for i in range(n):
+            prob += lpSum(y[(i,t)] for t in range(B)) <= d[i] #2
+
+        for t in range(B):
+            prob += lpSum(y[(i,t)] for i in range(n)) <= 1 #3
+  - cellType: CODE
+    cellId: 18258c40-6dae-4e02-bd18-ed595fb56a68 # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: solve problem
+    config:
+      source: prob.solve()
+  - cellType: MARKDOWN
+    cellId: ed902700-01e9-4ea1-a59f-f75a136c69e9 # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: null
+    config:
+      source: |-
+        ### Output
+        The following table lists each time block and task that should be completed today in order to maximize my producitivity.
+  - cellType: CODE
+    cellId: 8aab0ee7-1209-4b57-a590-6b26b43d85b3 # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: put optimizer results into dataframe
+    config:
+      source: |-
+        import pandas as pd
+        tasks_blocks = pd.DataFrame(columns=['Task', 'Block'])
+
+        for i in range(n):
+            for t in range(B):
+                if y[(i,t)].varValue == 1:
+                    tasks_blocks = pd.concat([tasks_blocks, pd.DataFrame({'Task': [i], 'Block': [t]})], ignore_index=True)
+  - cellType: CODE
+    cellId: 0b72bb00-037f-4b33-bf13-8f18f0ef65f4 # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: change the datatypes
+    config:
+      source: |-
+        tasks_blocks['Task'] = tasks_blocks['Task'].astype(int)
+        tasks_blocks['Block'] = tasks_blocks['Block'].astype(int)
+  - cellType: CODE
+    cellId: d8098500-d783-4522-942b-f4e493ef7232 # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: create index columns in associated dataframes starting from zero
+    config:
+      source: |-
+        task['task_id'] = range(len(task))
+        available_blocks['block_id'] = range(len(available_blocks))
+  - cellType: SQL
+    cellId: 4eaf0608-be80-444a-9b0b-ea7770cd94e2 # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: Results
+    config:
+      source: |-
+        SELECT
+        available_blocks."Time",
+        task."Task name"
+
+        FROM 
+        tasks_blocks 
+        INNER JOIN task ON tasks_blocks.Task = task.task_id
+        INNER JOIN available_blocks ON tasks_blocks.Block = available_blocks.block_id
+      dataFrameCell: true
+      dataConnectionId: null
+      resultVariableName: results
+      enableCache: false
+      runOnLoad: false
+      runOnSchedule: false
+      useRichDisplay: false
+      sqlCellOutputType: PANDAS
+      useQueryMode: false
+      castDecimals: true
+      useNativeDates: false
+      allowDuplicateColumns: false
+      tableDisplayConfig: null
+  - cellType: TABLE_DISPLAY
+    cellId: 5fdb65ce-4c8a-4476-a62f-4d736cbe5980 # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: null
+    config:
+      dataFrameVariableName: results
+      tableDisplayConfig:
+        pageSize: 17
+        hideIcons: false
+        hideIndex: false
+        defaultSortColumn: null
+        defaultSortIndexColumn: null
+        defaultSortDirection: ASC
+        conditionalFormatting: null
+        filters: null
+        columnProperties:
+          - originalName: Time
+            renameTo: null
+            size: 98
+            wrapText: null
+            displayFormat: null
+          - originalName: Task name
+            renameTo: null
+            size: 129
+            wrapText: null
+            displayFormat: null
+        columnOrdering: null
+appLayout:
+  fullWidth: false
+  visibleMetadataFields:
+    - NAME
+    - DESCRIPTION
+    - AUTHOR
+    - LAST_EDITED
+    - LAST_RUN
+    - CATEGORIES
+    - STATUS
+    - TABLE_OF_CONTENTS
+  rows:
+    - columns:
+        - start: 0
+          end: 120
+          elements:
+            - showSource: false
+              hideOutput: false
+              type: CELL
+              cellId: 5814fe4d-0717-4ce1-b90a-62c9ef009973
+              height: null
+              showLabel: true
+    - columns:
+        - start: 0
+          end: 120
+          elements:
+            - showSource: false
+              hideOutput: false
+              type: CELL
+              cellId: 60756271-4c35-4ab8-a713-c31f245efc3f
+              height: null
+              showLabel: false
+    - columns:
+        - start: 0
+          end: 120
+          elements:
+            - showSource: false
+              hideOutput: false
+              type: CELL
+              cellId: ba65e122-ba66-48db-8292-51802e5aa3ae
+              height: null
+              showLabel: true
+    - columns:
+        - start: 0
+          end: 120
+          elements:
+            - showSource: false
+              hideOutput: false
+              type: CELL
+              cellId: 5466b5fb-108b-49e1-b112-b4cc90372128
+              height: null
+              showLabel: false
+    - columns:
+        - start: 0
+          end: 120
+          elements:
+            - showSource: false
+              hideOutput: false
+              type: CELL
+              cellId: ed902700-01e9-4ea1-a59f-f75a136c69e9
+              height: null
+              showLabel: true
+    - columns:
+        - start: 0
+          end: 120
+          elements:
+            - showSource: false
+              hideOutput: false
+              type: CELL
+              cellId: 5fdb65ce-4c8a-4476-a62f-4d736cbe5980
+              height: null
+              showLabel: true
