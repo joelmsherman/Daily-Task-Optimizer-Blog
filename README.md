@@ -128,4 +128,4 @@ The following table lists each time block and task that should be completed toda
 
 ![Final Output](Images/FinalOutput.png)
 
-Feel free to view and play around with the [Hex app](https://app.hex.tech/2737cf3a-31c1-4361-9f90-8dea0b629cf0/app/437a96da-594f-4950-9a79-5386bbaefc8c/latest)!  And thanks for reading!
+Feel free to view and play around with the [Hex app](https://app.hex.tech/5b266aaf-b343-4ae7-bdea-218e8fe3001f/app/c51216ad-74f9-43c1-a253-87dba14ff927/latest)!  And thanks for reading!
