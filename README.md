@@ -1,6 +1,6 @@
 # Daily Task Scheduling with Hex and PuLP
 
-![TaskBot](RobotTaskPlanner_DALL-E.png)
+![TaskBot](Images/RobotTaskPlanner_DALL-E.png)
 
 ## Problem
 
@@ -18,13 +18,13 @@ Hex apps can accommodate input widgets like buttons, date pickers and dropdowns 
 
 Enter your current tasks, along with a priority level (larger numbers have higher priority than smaller numbers) and expected duration.  Since this is a daily task planner, I'll use minutes, but the code can be easily adapted for longer horizons where hours or even days could be used.
 
-![Task List](TaskInput.gif)
+![Task List](Images/TaskInput.gif)
 
 ### Step 2: Enter your Schedule
 
 Enter your schedule for the day, or more specifically, your availability (1 = available) during each 1/2 hour time block.  If you're working with longer time horizons, your time blocks can be hours or even days.
 
-![Schedule](ScheduleInput.gif)
+![Schedule](Images/ScheduleInput.gif)
 
 ### Extracted Variables
 
@@ -89,7 +89,7 @@ The optimization needs to adhere to the following constraints:
 
 To solve the problem, we invoke `prob.solve()`.  In the Hex notebook, we can configure the App run settings to wait for an app user to click a run button.  That button is in the upper right corner of the Hex app.  
 
-![Run button](RunningNotebook.gif)
+![Run button](Images/RunningNotebook.gif)
 
 ## Output
 
@@ -126,6 +126,6 @@ And then join the three tables to show the results
 
 The following table lists each time block and task that should be completed today in order to maximize producitivity, based on the inputs above:
 
-![Final Output](FinalOutput.png)
+![Final Output](Images/FinalOutput.png)
 
 Feel free to view and play around with the [Hex app](https://app.hex.tech/2737cf3a-31c1-4361-9f90-8dea0b629cf0/app/437a96da-594f-4950-9a79-5386bbaefc8c/latest)!  And thanks for reading!
